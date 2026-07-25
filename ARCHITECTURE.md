@@ -149,7 +149,7 @@ both an id and a session token, so one session cannot read another's artifacts.
 
 ## Testing
 
-61 tests, no network and no model calls. The LLM is injected as a
+62 tests, no network and no model calls. The LLM is injected as a
 `complete_fn` in engine tests and monkeypatched in route tests, so every
 interview path is exercised deterministically with scripted model output.
 

@@ -8,7 +8,8 @@ real session looks like afterwards.
 
 ```bash
 pip install -e ".[dev]"
-pytest          # 61 tests, no network, no model calls
+pytest          # 62 tests, no network, no model calls
+                # 2 skip unless the default provider package is installed
 ruff check src tests
 ```
 

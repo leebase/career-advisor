@@ -42,7 +42,8 @@ specialization rather than something baked into the engine.
 git clone https://github.com/leebase/career-advisor.git
 cd career-advisor
 pip install -e ".[dev]"
-pytest                      # 61 tests, no model calls, no network
+pytest                      # 62 tests, no model calls, no network
+                            # (2 skip without the default provider installed)
 
 career-advisor serve        # http://127.0.0.1:8611/career-advisor/
 ```
