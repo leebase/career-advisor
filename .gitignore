@@ -33,6 +33,9 @@ data/
 # Local-only git history kept when this became a public repo.
 .local-history/
 
+# Private per-deployment compose settings (public hostname, local mounts).
+docker-compose.override.yml
+
 # Private operating docs for the environment this was built in. They describe
 # internal agent infrastructure and business process, not this application,
 # and are deliberately not part of the public project. They remain on disk.
