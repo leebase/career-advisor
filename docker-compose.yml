@@ -1,9 +1,21 @@
+# Builds and runs the app with no dependency beyond this repository.
+#
+# The app starts and serves without an LLM provider; interviews need one.
+# Point CAREER_ADVISOR_LLM_PROVIDER at any callable matching
+# `complete(prompt) -> str` (see README.md), e.g.
+#
+#   environment:
+#     CAREER_ADVISOR_LLM_PROVIDER: "myproject.provider:complete"
+#
+# Your provider's own package and credentials are yours to mount or install —
+# put that, and anything else specific to your deployment, in
+# docker-compose.override.yml, which Compose merges automatically and this
+# repository ignores.
 services:
   career-advisor:
     build:
       context: .
-      additional_contexts:
-        agent-orch: ../agent-orch
+      target: app
     container_name: career-advisor
     ports:
       - "127.0.0.1:8611:8611"
@@ -12,10 +24,6 @@ services:
       # Drop this line if you are not proxying from another compose stack.
       - "172.17.0.1:8611:8611"
     volumes:
+      # SQLite lives here: invites, sessions, profile facts, documents.
       - ./data:/data
-      # Default provider only: the Codex CLI binary plus its auth/config state.
-      # Auth lives in files (~/.codex/auth.json), never in env vars. Remove
-      # both mounts when using CAREER_ADVISOR_LLM_PROVIDER instead.
-      - ${HOME}/.local/bin/codex:/usr/local/bin/codex:ro
-      - ${HOME}/.codex:/root/.codex
     restart: unless-stopped

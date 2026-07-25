@@ -1,6 +1,7 @@
 """Web routes for interview + documents with injected fake LLM via monkeypatch."""
 
 import json
+import re
 
 import pytest
 from fastapi.testclient import TestClient
@@ -92,6 +93,24 @@ def test_interview_flow_with_fake_llm(client, monkeypatch):
     )
     assert page2.status_code == 200
     assert "What role do you want next?" in page2.text
+
+
+def test_footer_is_neutral_and_configurable(client):
+    """A fork must not inherit another deployment's branding."""
+    from career_advisor import web
+
+    page = client.get("/career-advisor/")
+    # Exactly the neutral default: guards against a deployment's own brand
+    # being hardcoded back into the template.
+    footers = re.findall(r"<footer[^>]*>\s*<p>(.*?)</p>", page.text, re.S)
+    assert footers == [web.DEFAULT_FOOTER]
+
+    # Deployments brand it through the environment, not by editing a template.
+    web.templates.env.globals["footer_text"] = "Run by Example Corp."
+    try:
+        assert "Run by Example Corp." in client.get("/career-advisor/").text
+    finally:
+        web.templates.env.globals["footer_text"] = web.DEFAULT_FOOTER
 
 
 def test_answer_page_shows_what_was_captured_and_why(client, monkeypatch):

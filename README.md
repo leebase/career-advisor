@@ -78,6 +78,10 @@ That package is not required and is not on PyPI — if it is missing, the import
 still succeeds and only real model calls fail, with a message telling you
 what to do. Nothing else in the codebase knows or cares which model answers.
 
+Other environment knobs, all optional: `CAREER_ADVISOR_DB` (database path),
+`CAREER_ADVISOR_BASE_URL` (what invite links point at),
+`CAREER_ADVISOR_FOOTER` (the footer line on every page).
+
 ### Docker
 
 ```bash
@@ -85,10 +89,26 @@ docker compose up --build -d
 curl -s http://127.0.0.1:8611/career-advisor/health
 ```
 
-The bundled `docker-compose.yml` builds against the default provider seam
-(`additional_contexts: agent-orch: ../agent-orch`) and mounts a Codex CLI
-binary and its config. Using your own provider means dropping those and
-setting `CAREER_ADVISOR_LLM_PROVIDER` in the service environment instead.
+That works from a fresh clone with nothing else installed. The image contains
+the app and no provider, so give it one the same way — by setting
+`CAREER_ADVISOR_LLM_PROVIDER` in the service environment, along with whatever
+your provider needs mounted or installed.
+
+Put anything specific to your deployment in `docker-compose.override.yml`,
+which Compose merges automatically and this repository ignores:
+
+```yaml
+services:
+  career-advisor:
+    environment:
+      CAREER_ADVISOR_LLM_PROVIDER: "myproject.provider:complete"
+      CAREER_ADVISOR_BASE_URL: "https://example.com/career-advisor/"
+      CAREER_ADVISOR_FOOTER: "Run by Example Corp."
+```
+
+The `Dockerfile` also has a `codex-seam` target that installs the default
+`agent_orch.llm` provider from a named build context, if you happen to have
+that package.
 
 `deploy/webroot-default.conf` is an nginx drop-in for serving the app under a
 `/career-advisor/` path prefix behind a shared static webroot. Every route is

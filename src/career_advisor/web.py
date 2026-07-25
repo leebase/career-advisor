@@ -7,6 +7,7 @@ reverse proxy serving it under that path prefix (see deploy/).
 
 from __future__ import annotations
 
+import os
 import time
 from pathlib import Path
 
@@ -28,6 +29,14 @@ SESSION_MAX_AGE = 90 * 24 * 3600
 
 _PKG_DIR = Path(__file__).parent
 templates = Jinja2Templates(directory=_PKG_DIR / "templates")
+
+# Footer line, on every page. Deployments brand it via the environment rather
+# than by patching a template, so a fork does not inherit someone else's name.
+# Read at startup; restart to change it.
+DEFAULT_FOOTER = "Career Advisor — an interview-driven career profile builder."
+templates.env.globals["footer_text"] = os.environ.get(
+    "CAREER_ADVISOR_FOOTER", DEFAULT_FOOTER
+)
 
 
 class InviteRateLimiter:
