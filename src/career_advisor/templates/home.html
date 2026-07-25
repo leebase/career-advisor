@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <h1>Hi, {{ name }} 👋</h1>
+    <p>Your personal career team. We'll build your story, your resume, and
+    your plan to land the next role.</p>
+  </section>
+
+  <section class="cards">
+    <article class="card">
+      <h2>Interview</h2>
+      <p>Answer questions about your work history. The interviewer digs for
+      the accomplishments you forget to mention.</p>
+      {% if interview_complete %}
+        <span class="badge badge-ok">Complete · {{ fact_count }} facts</span>
+      {% elif fact_count > 0 %}
+        <span class="badge">In progress · {{ fact_count }} facts</span>
+      {% else %}
+        <span class="badge">Ready</span>
+      {% endif %}
+      <p class="card-action"><a class="btn" href="{{ prefix }}/interview">
+        {% if interview_complete %}Review interview{% elif fact_count > 0 %}Continue{% else %}Start interview{% endif %}
+      </a></p>
+    </article>
+    <article class="card">
+      <h2>Resume</h2>
+      <p>A resume built from your interview — tailored, evidence-backed, and
+      versioned for different kinds of roles.</p>
+      {% if has_resume %}
+        <span class="badge badge-ok">Generated</span>
+      {% elif fact_count > 0 %}
+        <span class="badge">Ready to generate</span>
+      {% else %}
+        <span class="badge">Needs interview</span>
+      {% endif %}
+      <p class="card-action"><a class="btn" href="{{ prefix }}/documents">Open documents</a></p>
+    </article>
+    <article class="card">
+      <h2>Job Search Strategy</h2>
+      <p>A concrete plan: where to look, who to talk to, and what to do each
+      week until you're hired.</p>
+      {% if has_strategy %}
+        <span class="badge badge-ok">Generated</span>
+      {% elif fact_count > 0 %}
+        <span class="badge">Ready to generate</span>
+      {% else %}
+        <span class="badge">Needs interview</span>
+      {% endif %}
+      <p class="card-action"><a class="btn" href="{{ prefix }}/documents">Open documents</a></p>
+    </article>
+  </section>
+
+  {% if sections %}
+  <section class="progress-panel">
+    <h2>Profile coverage</h2>
+    <ul class="progress-list">
+      {% for s in sections %}
+      <li>
+        <div class="progress-label">
+          <span>{{ s.title }}</span>
+          <span class="muted">{{ s.filled }}/{{ s.total }}</span>
+        </div>
+        <div class="progress-bar" role="progressbar"
+             aria-valuenow="{{ s.pct }}" aria-valuemin="0" aria-valuemax="100">
+          <span style="width: {{ s.pct }}%"></span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <h1>Welcome</h1>
+    <p>Career Advisor is invitation-only. Open the invitation link you were
+    sent to get started — it looks like
+    <code>…/career-advisor/?invite=…</code>.</p>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+  </section>
+{% endblock %}

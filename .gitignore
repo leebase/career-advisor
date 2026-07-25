@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+build/
+
+# Agent / local
+.kb/
+tmp/
+artifacts/
+.agent-orch-scratch/
+*.log
+
+# macOS / syncthing noise
+._*
+.syncthing.*.tmp
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# App data (SQLite: invites, sessions, profiles)
+data/
+
+# Local-only git history kept when this became a public repo.
+.local-history/
+
+# Private operating docs for the environment this was built in. They describe
+# internal agent infrastructure and business process, not this application,
+# and are deliberately not part of the public project. They remain on disk.
+AGENTS.md
+OPERATE.md
+WHERE_AM_I.md
+context.md
+lees-process.md
+new-project-onboard.md
+project-plan.md
+result-review.md
+sprint-plan.md
+sprint-review.md
+architecture.internal.md
+product-definition.md
+feedback.md
+.agent-orch/
+backlog/
+playbooks/
+skills/
+docs/grok-mvp-build-prompt.md
+docs/project-onboarding.md

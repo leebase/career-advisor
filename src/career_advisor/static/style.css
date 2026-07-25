@@ -1,0 +1,418 @@
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #1c2733;
+  --muted: #5b6b7b;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --border: #e3e8ee;
+  --ok: #047857;
+  --ok-bg: #ecfdf5;
+  --danger: #b91c1c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.95rem;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+.hero { padding: 2rem 0 1rem; }
+.hero-compact { padding: 1.25rem 0 0.5rem; }
+.hero h1 { margin: 0 0 0.5rem; font-size: 1.75rem; }
+.hero p { color: var(--muted); max-width: 42rem; }
+
+.breadcrumb {
+  padding-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.breadcrumb a { color: var(--accent); text-decoration: none; }
+
+.error { color: var(--danger); font-weight: 600; }
+
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  padding: 1rem 0 2rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+}
+
+.card h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+.card p { color: var(--muted); font-size: 0.95rem; }
+.card-action { margin-top: 0.75rem; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: #eff4ff;
+  border-radius: 1rem;
+  padding: 0.1rem 0.6rem;
+}
+
+.badge-ok {
+  color: var(--ok);
+  background: var(--ok-bg);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.3;
+}
+
+.btn:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: #f0f4ff;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin: 1rem 0 2rem;
+}
+
+.interview-panel {
+  /* Give the answer form room; progress pills above are secondary. */
+  padding-bottom: 1.5rem;
+}
+
+.interview-panel .question {
+  font-size: 1.25rem;
+  margin: 0.25rem 0 1rem;
+  line-height: 1.4;
+}
+
+.section-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+
+/* Receipt for the answer just given. An interview that only ever replies
+   with another question reads as a void, however good the questions are. */
+.captured-panel {
+  border-left: 3px solid var(--ok);
+  background: var(--ok-bg);
+  margin-bottom: 1rem;
+}
+
+.captured-head {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ok);
+  margin: 0 0 0.6rem;
+}
+
+.captured-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.captured-list li {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.captured-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.captured-value { line-height: 1.45; }
+
+.captured-tag {
+  justify-self: start;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.kept-panel {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.rationale {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: -0.5rem 0 1rem;
+  font-style: italic;
+}
+
+/* Always reachable: the candidate, not the model, decides when it ends. */
+.finish-panel {
+  margin-top: -1rem;
+  padding: 1rem 1.25rem;
+}
+
+.finish-panel p { margin: 0 0 0.75rem; }
+
+.answer-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.answer-form textarea {
+  display: block;
+  width: 100%;
+  /* Large writing surface: ~half the viewport, floor for short screens. */
+  min-height: max(16rem, 42vh);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  resize: vertical;
+  margin-bottom: 0.85rem;
+  background: #fff;
+}
+
+.answer-form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.answer-form .btn-answer {
+  width: 100%;
+  max-width: none;
+  min-height: 3rem;
+  font-size: 1.05rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.section-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.5rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.pill-active { border-color: #93c5fd; }
+.pill-done { border-color: #6ee7b7; background: var(--ok-bg); }
+
+.pill-title { display: block; font-weight: 600; }
+.pill-meta { color: var(--muted); font-size: 0.75rem; }
+
+.progress-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.progress-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.progress-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.progress-list li { margin-bottom: 0.75rem; }
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.progress-bar {
+  height: 0.45rem;
+  background: var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.progress-bar.thin { height: 0.3rem; margin-top: 0.3rem; }
+
+.progress-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 1rem;
+}
+
+.success-panel { border-color: #6ee7b7; }
+
+.version-list {
+  list-style: none;
+  padding: 0.75rem 0 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.version-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.version-list a { color: var(--accent); font-weight: 600; }
+
+.document-body {
+  overflow-x: auto;
+}
+
+.md-body {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.site-footer {
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 40rem) {
+  .hero h1 { font-size: 1.4rem; }
+  .hero-compact { padding: 0.75rem 0 0.25rem; }
+  .hero-compact p { display: none; } /* free vertical space for the answer box */
+  .interview-panel .question { font-size: 1.1rem; margin-bottom: 0.75rem; }
+  .answer-form textarea {
+    min-height: max(14rem, 45vh);
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+  .section-pills {
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap: 0.35rem;
+    margin: 0.25rem 0 0.75rem;
+  }
+  .pill {
+    padding: 0.35rem 0.45rem;
+    font-size: 0.72rem;
+  }
+  .nav-links { gap: 0.75rem; font-size: 0.85rem; }
+}
+
+@media print {
+  .site-header, .site-footer, .breadcrumb, .card-action, .nav-links {
+    display: none !important;
+  }
+  body { background: #fff; }
+  .document-body { border: none; }
+}

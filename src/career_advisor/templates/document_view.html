@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ doc_label }} v{{ doc.version }} — Career Advisor{% endblock %}
+{% block content %}
+  <nav class="breadcrumb">
+    <a href="{{ prefix }}/">Home</a> ·
+    <a href="{{ prefix }}/documents">Documents</a> ·
+    {{ doc_label }} v{{ doc.version }}
+  </nav>
+
+  <section class="hero hero-compact doc-header">
+    <h1>{{ doc.title }}</h1>
+    <p class="muted">Version {{ doc.version }} · {{ doc.created_at }}</p>
+    <p class="card-action">
+      <a class="btn" href="{{ prefix }}/documents/{{ doc.id }}/download">Download Markdown</a>
+      <a class="btn btn-secondary" href="{{ prefix }}/documents">All documents</a>
+    </p>
+  </section>
+
+  <article class="panel document-body printable">
+    <pre class="md-body">{{ doc.body_markdown }}</pre>
+  </article>
+{% endblock %}

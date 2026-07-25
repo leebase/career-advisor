@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Interview — Career Advisor{% endblock %}
+{% block content %}
+  <nav class="breadcrumb">
+    <a href="{{ prefix }}/">Home</a> · Interview
+  </nav>
+
+  <section class="hero hero-compact">
+    <h1>Career interview</h1>
+    <p class="muted">One question at a time. We dig for evidence and metrics —
+    the accomplishments you usually under-report.</p>
+  </section>
+
+  {% if sections %}
+  <section class="section-pills" aria-label="Section progress">
+    {% for s in sections %}
+    <div class="pill {% if s.filled == s.total and s.total > 0 %}pill-done{% elif s.filled > 0 %}pill-active{% endif %}">
+      <span class="pill-title">{{ s.title }}</span>
+      <span class="pill-meta">{{ s.filled }}/{{ s.total }}</span>
+      <div class="progress-bar thin">
+        <span style="width: {{ s.pct }}%"></span>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if error %}
+  <p class="error" role="alert">{{ error }}</p>
+  {% endif %}
+
+  {% if captured %}
+  <section class="panel captured-panel" aria-live="polite">
+    <h2 class="captured-head">Captured from that answer</h2>
+    <ul class="captured-list">
+      {% for c in captured %}
+      <li>
+        <span class="captured-label">{{ c.section_title }} · {{ c.label }}</span>
+        <span class="captured-value">{{ c.value }}</span>
+        {% if c.updated %}<span class="captured-tag">updated</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if kept_earlier %}
+  <section class="panel kept-panel">
+    <p class="small">For {{ kept_earlier | map(attribute='label') | join(', ') }}
+    we {{ kept_earlier[0].reason }} — nothing was lost.</p>
+  </section>
+  {% endif %}
+
+  {% if complete %}
+  <section class="panel success-panel">
+    <h2>Interview complete</h2>
+    <p>We have {{ fact_count }} evidenced facts in your profile
+    ({{ turn_count }} turns). You can generate your resume and job-search
+    strategy next.</p>
+    <p class="card-action">
+      <a class="btn" href="{{ prefix }}/documents">Generate documents</a>
+      <a class="btn btn-secondary" href="{{ prefix }}/">Back home</a>
+    </p>
+  </section>
+  {% elif question %}
+  <section class="panel interview-panel">
+    {% if section %}
+    <p class="section-tag">Section: {{ section | replace('_', ' ') }}</p>
+    {% endif %}
+    <h2 class="question">{{ question }}</h2>
+    {% if rationale %}
+    <p class="rationale">Why I'm asking: {{ rationale }}</p>
+    {% endif %}
+    <form method="post" action="{{ prefix }}/interview" class="answer-form">
+      <label for="answer" class="answer-label">Your answer</label>
+      <textarea id="answer" name="answer" rows="12" required
+        placeholder="Share details — systems, scale, ownership, outcomes. Numbers help (users, tickets, sites, time saved)…"
+        autofocus></textarea>
+      <button type="submit" class="btn btn-answer">Send answer</button>
+    </form>
+    <p class="muted small">Closing this page is fine — your interview resumes
+    where you left off.</p>
+  </section>
+
+  <section class="panel finish-panel">
+    {% if ready %}
+    <p><strong>You've covered everything essential</strong> —
+    {{ fact_count }} facts across {{ turn_count }} questions. Keep going to add
+    depth, or stop here and generate your documents.</p>
+    {% elif nudge_finish %}
+    <p><strong>That's {{ turn_count }} questions.</strong> You can stop whenever
+    you like — we'll work with what you've given us.</p>
+    {% else %}
+    <p class="small muted">You're in charge of when this ends.</p>
+    {% endif %}
+    <form method="post" action="{{ prefix }}/interview/finish">
+      <button type="submit" class="btn btn-secondary">
+        I've given you enough — finish up
+      </button>
+    </form>
+  </section>
+  {% else %}
+  <section class="panel">
+    <p>No question available right now. Try again in a moment.</p>
+    <a class="btn" href="{{ prefix }}/interview">Retry</a>
+  </section>
+  {% endif %}
+{% endblock %}

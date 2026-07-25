@@ -1,0 +1,139 @@
+# Domain Profile schema: candidate
+# Domain-agnostic shape: domain, version, sections → facts with description + evidence.
+# The Interview Engine loads any schema of this shape; "candidate" is a specialization.
+
+domain: candidate
+version: 1
+title: Candidate Profile
+
+sections:
+  identity:
+    title: Identity
+    order: 1
+    facts:
+      full_name:
+        description: Legal or preferred full name for resume and applications
+        evidence: How they introduce themselves professionally; preferred name if different
+        priority: required
+      location:
+        description: City/region and willingness to relocate
+        evidence: Current base; remote/hybrid/onsite preference tied to location
+        priority: required
+      contact_email:
+        description: Primary professional email
+        evidence: Email they want on the resume (optional until they choose to share)
+        priority: optional
+      online_presence:
+        description: LinkedIn, GitHub, portfolio, or personal site URLs
+        evidence: Working URLs or explicit "none yet"
+        priority: optional
+
+  career_summary:
+    title: Career Summary
+    order: 2
+    facts:
+      target_roles:
+        description: Job titles and role types they want next
+        evidence: Specific titles (e.g. Desktop Support, SysAdmin, AWS Support) not vague "IT job"
+        priority: required
+      years_experience:
+        description: Approximate years of relevant professional experience
+        evidence: Timeline from first related role to now
+        priority: required
+      elevator_pitch:
+        description: 2–4 sentence professional summary in their voice
+        evidence: Grounded in real roles and outcomes, not generic buzzwords
+        priority: required
+      industries:
+        description: Industries or environments worked in
+        evidence: Named employers' domains (MSP, healthcare, education, enterprise, etc.)
+        priority: preferred
+
+  employment_history:
+    title: Employment History
+    order: 3
+    facts:
+      recent_roles:
+        description: Recent roles with employer, title, and date range
+        evidence: Employer names, titles, start/end months or years; gaps explained if relevant
+        priority: required
+      scope_of_responsibility:
+        description: What they owned day-to-day vs assisted others with
+        evidence: Systems owned, ticket queues, team size, on-call, escalation level
+        priority: required
+      environments:
+        description: Environments supported (user counts, sites, cloud/on-prem mix)
+        evidence: Scale numbers — seats, endpoints, servers, sites, regions
+        priority: preferred
+
+  skills_and_stack:
+    title: Skills & Technology
+    order: 4
+    facts:
+      core_skills:
+        description: Primary technical and soft skills for target roles
+        evidence: Skills tied to real use (where/when), not just list keywords
+        priority: required
+      technology_stack:
+        description: Tools, platforms, OS, cloud, ticketing, automation
+        evidence: Named products + depth (daily admin vs occasional use)
+        priority: required
+      certifications:
+        description: Active or past certifications and training
+        evidence: Cert name, issuer, year; in-progress study counts
+        priority: preferred
+
+  achievements:
+    title: Achievements
+    order: 5
+    facts:
+      key_wins:
+        description: Standout accomplishments with measurable outcomes
+        evidence: Metrics (time saved, tickets reduced, uptime, cost, users impacted) and ownership
+        priority: required
+      automation_and_process:
+        description: Scripts, runbooks, process improvements they created
+        evidence: What was automated, before/after, who still uses it
+        priority: preferred
+      leadership_and_escalation:
+        description: Mentoring, training, escalations they handled, leadership without title
+        evidence: Who escalated to them, what they unblocked, frequency
+        priority: preferred
+
+  education:
+    title: Education
+    order: 6
+    facts:
+      formal_education:
+        description: Degrees, diplomas, relevant coursework, or equivalent path
+        evidence: School/program and years; honest about no degree if applicable
+        priority: preferred
+      continuous_learning:
+        description: Recent learning (labs, courses, home lab, books)
+        evidence: Specific topics and proof of practice
+        priority: optional
+
+  preferences:
+    title: Job Preferences
+    order: 7
+    facts:
+      work_arrangement:
+        description: Remote, hybrid, onsite preferences and commute limits
+        evidence: Hard constraints vs nice-to-haves
+        priority: required
+      compensation:
+        description: Salary or total-comp range and benefits that matter
+        evidence: Numbers they will actually accept; geographic basis
+        priority: preferred
+      availability:
+        description: Notice period and start timing
+        evidence: Current employment status and constraints
+        priority: preferred
+      work_authorization:
+        description: Work authorization / visa situation for target geography
+        evidence: Clear statement (e.g. US citizen, need sponsorship)
+        priority: preferred
+      deal_breakers:
+        description: Roles, industries, or conditions they will not accept
+        evidence: Explicit no-go list
+        priority: optional

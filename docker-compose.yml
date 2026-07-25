@@ -1,0 +1,21 @@
+services:
+  career-advisor:
+    build:
+      context: .
+      additional_contexts:
+        agent-orch: ../agent-orch
+    container_name: career-advisor
+    ports:
+      - "127.0.0.1:8611:8611"
+      # docker-bridge gateway binding: lets a separate nginx container reach
+      # the app via host.docker.internal (host-gateway) without LAN exposure.
+      # Drop this line if you are not proxying from another compose stack.
+      - "172.17.0.1:8611:8611"
+    volumes:
+      - ./data:/data
+      # Default provider only: the Codex CLI binary plus its auth/config state.
+      # Auth lives in files (~/.codex/auth.json), never in env vars. Remove
+      # both mounts when using CAREER_ADVISOR_LLM_PROVIDER instead.
+      - ${HOME}/.local/bin/codex:/usr/local/bin/codex:ro
+      - ${HOME}/.codex:/root/.codex
+    restart: unless-stopped
